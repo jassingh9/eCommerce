@@ -12,16 +12,16 @@ class UserManager(models.Manager):
         errors = {}
         if len(postData['first_name']) == 0:
             errors['first_name'] = "Please enter a first name"
-        elif len(postData['first_name']) < 8:
-            errors['first_name'] = "First name should be more than 8 characters"
-        elif any([letter.isdigit() for letter in postData['name']]):
+        elif len(postData['first_name']) < 3:
+            errors['first_name'] = "First name should be more than 2 characters"
+        elif any([letter.isdigit() for letter in postData['first_name']]):
             errors['first_name'] = "First name must only contains letters"
 
         if len(postData['last_name']) == 0:
             errors['last_name'] = "Please enter a last name"
-        elif len(postData['first_name']) < 8:
-            errors['last_name'] = "Last name should be more than 8 characters"
-        elif any([letter.isdigit() for letter in postData['name']]):
+        elif len(postData['last_name']) < 3:
+            errors['last_name'] = "Last name should be more than 2 characters"
+        elif any([letter.isdigit() for letter in postData['last_name']]):
             errors['last_name'] = "Last name must only contains letters"
 
         if len(postData['email']) == 0:
@@ -62,7 +62,29 @@ class UserManager(models.Manager):
 
     def buy_validator(self, postData):
         errors = {}
+        if len(postData['first_name']) == 0:
+            errors['first_name'] = "Please enter a first name"
+        elif len(postData['first_name']) < 3:
+            errors['first_name'] = "First name should be more than 2 characters"
 
+        if len(postData['last_name']) == 0:
+            errors['last_name'] = "Please enter a last name"
+        elif len(postData['last_name']) < 3:
+            errors['last_name'] = "Last name should be more than 2 characters"
+
+        if len(postData['address']) == 0:
+            errors['address'] = "Please enter a valid address"
+
+        if len(postData['city']) == 0:
+            errors['city'] = "Please enter a valid city"
+
+        if len(postData['state']) == 0:
+            errors['state'] = "Please enter a state"
+
+        if len(postData['zipcode']) == 0:
+            errors['zipcode'] = "Please enter a valid zipcode."
+        elif any([digit.isalpha() for digit in postData['zipcode']]):
+            errors['zipcode'] = "Zipcode must be numbers only."
 
 class User(models.Model):
     first_name = models.CharField(max_length=255)
