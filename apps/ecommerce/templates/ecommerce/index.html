@@ -43,6 +43,11 @@
           </form>
         </div>
 
+{% for item in items %}
+  {{item.image}}
+  {% endfor %}
+
+
         <div class=login>
           <form action="/login" method="post">
             <fieldset>

@@ -2,10 +2,14 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponse
+from models import *
 
 # Create your views here.
 def index(request):
-    return render(request, 'ecommerce/index.html')
+    context= {
+     "items": Item.objects.all()
+    }
+    return render(request, 'ecommerce/index.html', context)
 
 # Create shopping page
 # View all items page with categories and search
