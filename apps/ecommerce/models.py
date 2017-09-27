@@ -61,6 +61,10 @@ class UserManager(models.Manager):
             errors['password'] = "Please enter a password"
         return errors;
 
+    def buy_validator(self, postData):
+        errors = {}
+
+
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -74,9 +78,28 @@ class User(models.Model):
 
 class Account(models.Model):
     account = models.OneToOneField(User, primay_key=True)
-    biling_add = models.CharField(max_length=255)
-    shipping_add = models.CharField(max_length=255)
+    biling_add = models.ManyToManyField(Billing, related_name="billing")
+    shipping_add = models.ManyToManyField(Shipping, related_name="shipping")
 
+class Shipping(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    address2 = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    zipcode = models.CharField(max_length=255)
+    objects=UserManager()
+
+class Billing(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    address2 = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    zipcode = models.CharField(max_length=255)
+    objects=UserManager()
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
@@ -99,6 +122,7 @@ class Item(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to = "img/", default = "img/None")
     desc = models.CharField(max_length=255)
+    quantity = models.IntegerField(default=100)
     price = models.IntegerField()
     OFFICE = "OFFICE SUPPLIES"
     BURRITO = "BURRITO"
