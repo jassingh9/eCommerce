@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SHOP TILL YOU DROP</title>
+    {% load static %}
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'eCommerce/css/styles.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3>World Domination a burrito at a time</h3>
+        <a href="">Shopping Cart <{{count}}</a>
+      </div>
+      <div class='sidebar'>
+        <form action='/search' method='post' id="search_bar">
+          {% csrf_token %}
+          <label><input type="text" name="search" value="product name"></label>
+        </form>
+        <h4>Categories</h4>
+        <p>Office Supplies</p>
+        <p>Burritos</p>
+        <p>Dojo Belts</p>
+        <p>Lawn Chairs</p>
+      </div>
+      <div>
+        <h1>{{category}} {{page number}}</h1>
+        <form action='/advances' method = 'post'>
+          search pages
+
+        </form>
+          for items in category.....display.....
+      </div>
+      <div class=footer>
+        <form action='/advances' method = 'post'>
+          page numbers
+
+        </form>
+      </div>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BUY NOW I"M HUNGRY</title>
+    {% load static %}
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'eCommerce/css/styles.css' %}">
+  </head>
+  <body>
+    <div class=container>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for looopppppppooooppp}
+          <tr>
+            items in cart filter by the id
+          </tr>
+
+        </tbody>
+      </table>
+      {{total}}
+      <a href=""> Continue Shopping</a>
+    </div>
+    <div>
+      <form action="info" method=post>
+        <h2> Shipping Info</h2>
+        First Name: <input type='text' name='first_name'>
+        Last Name: <input type='text' name='last_name'>
+        Address: <input type='text' name='address'>
+        Address 2: <input type='text' name='address2'>
+        City : <input type='text' name='city'>
+        Zipcode : <input type='text' name='zipcode'>
+        <h2>Billing Info</h2>
+        <input type='checkbox'>
+        First Name: <input type='text' name='bfirst_name'>
+        Last Name: <input type='text' name='blast_name'>
+        Address: <input type='text' name='baddress'>
+        Address 2: <input type='text' name='baddress2'>
+        City : <input type='text' name='bcity'>
+        Zipcode : <input type='text' name='bzipcode'>
+        Card: <input type="text" name="ccard">
+        Security: <input type="text" name="security">
+        Expiration: <input type="text" value="(mm)" name="month"><input type="text" value="(year)" name="year">
+        <input type=submit name="Pay">
+      </form>
+    </div>
+  </body>
+</html>

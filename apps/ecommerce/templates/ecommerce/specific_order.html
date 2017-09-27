@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Order</title>
+    {% load static %}
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'eCommerce/css/styles.css' %}">
+  </head>
+  <body>
+    <div class=container>
+      <div class=admin_header>
+        <h3>Dashboard</h3>
+        <form action="all_order" method=post>
+
+
+        </form>
+        <a href=''>Log off</a>
+        </div>
+        <div class=sidebar>
+          Order ID:
+          Custerom Shipping
+
+          s........
+        </div>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> items in cart</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          Status
+        </div>
+        <div>
+          SUBTOTAL
+          SHIPPING
+          TOTAL
+        </div>
+    </div>
+  </body>
+</html>
