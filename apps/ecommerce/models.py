@@ -97,10 +97,6 @@ class User(models.Model):
 
     objects=UserManager()
 
-class Account(models.Model):
-    account = models.OneToOneField(User, primay_key=True)
-    biling_add = models.ManyToManyField(Billing, related_name="billing")
-    shipping_add = models.ManyToManyField(Shipping, related_name="shipping")
 
 class Shipping(models.Model):
     first_name = models.CharField(max_length=255)
@@ -122,11 +118,34 @@ class Billing(models.Model):
     zipcode = models.CharField(max_length=255)
     objects=UserManager()
 
+class Account(models.Model):
+    account = models.OneToOneField(User, primary_key=True)
+    biling_add = models.ManyToManyField(Billing, related_name="billing")
+    shipping_add = models.ManyToManyField(Shipping, related_name="shipping")
+
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to = "img/", default = "img/None")
+    desc = models.CharField(max_length=255)
+    quantity = models.IntegerField(default=100)
+    price = models.DecimalField(max_digits=7, decimal_places=2)
+    OFFICE = "OFFICE SUPPLIES"
+    BURRITO = "BURRITO"
+    DOJOBELT = "DOJO BELT"
+    LAWNCHAIR = "LAWN CHAIR"
+    CATEGORY_CHOICES = (
+        (OFFICE, "Office Supplies"),
+        (BURRITO, "Burrito"),
+        (DOJOBELT, "Dojo Belt"),
+        (LAWNCHAIR, "Lawn Chair"),
+    )
+    category = models.CharField(max_length=40, choices=CATEGORY_CHOICES, default="OFFICE")
+
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-    accounts = models.ForeignKey(Account, related_name = account)
-    items = models.ManytoManyField(Item, related_name=item)
+    accounts = models.ForeignKey(Account, related_name = "account_cart")
+    items = models.ManyToManyField(Item, related_name="item")
     PROGRESS = "IN PROGRESS"
     SHIP = "SHIPPED"
     CANCEL = "CANCELLED"
@@ -137,22 +156,3 @@ class Cart(models.Model):
         (CANCEL, "Cancelled"),
     )
     status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")
-
-
-class Item(models.Model):
-    name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to = "img/", default = "img/None")
-    desc = models.CharField(max_length=255)
-    quantity = models.IntegerField(default=100)
-    price = models.IntegerField()
-    OFFICE = "OFFICE SUPPLIES"
-    BURRITO = "BURRITO"
-    DOJOBELT = "DOJO BELT"
-    LAWNCHAIR = "LAWN CHAIR"
-    CATEGORY_CHOICES = (
-        (OFFICE, "Office Supplies")
-        (BURRITO, "Burrito")
-        (DOJOBELT, "Dojo Belt")
-        (LAWNCHAIR, "Lawn Chair")
-    )
-    category = models.CharField(max_length=40, choices=CATEGORY_CHOICES, default="OFFICE")
