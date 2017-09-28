@@ -37,7 +37,46 @@
 
       <div class="mainbody">
         <div id="allitems">
+          <div class=sortby>
+            <p>Sorted By:</p>
+            <form action="/sortby" method='post' id="sortby">
+              {% csrf_token %}
+              <select name="sorted" id=sorted>
+                  <option value="price">Price</option>
+                  <option value="popularity">Most Popular</option>
+              </select>
+            </form>
+          </div>
+          {% for item in items %}
+          <div class="images">
+          <a href="/show/{{item.id}}"><img src="static/ecommerce/img/{{item.image}}" alt=""></a>
+          <p>{{item.name}} <span>Price ${{item.price}}</span><p>
+          </div>
+          {% endfor %}
         </div>
       </div>
+      <div class='page'>
+      {% if items.has_other_pages %}
+        <ul class="pagination">
+          {% if items.has_previous %}
+            <li><a href="?page={{ items.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in items.paginator.page_range %}
+            {% if items.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if items.has_next %}
+            <li><a href="?page={{ items.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
   </body>
 </html>

@@ -22,5 +22,17 @@ $(document).ready(function(){
         $('#allitems').html(serverResponse)
       }
     })
-  })
+  });
+  $(document).on('change', '#sorted', function(){
+    $('#sortby').submit()
+      e.preventDefault()
+      $.ajax({
+        url:$(this).attr('action'),
+        method: 'post',
+        data: $(this).serialize(),
+        success: function(serverResponse) {
+          $('#allitems').html(serverResponse)
+      }
+    })
+  });
 })

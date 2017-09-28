@@ -84,3 +84,16 @@ img{
 .similiar img{
   width: 15%;
 }
+
+.page{
+  text-align: center;
+}
+
+.searchpages{
+  text-align: right;
+}
+
+.sortby{
+  text-align: right;
+  margin-top: 2em;
+}
