@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A Web Page Shop</title>
+    {% load static %}
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'eCommerce/css/styles.css' %}">
+    <script type="text/javascript" src="{% static 'ecommerce/js/scripts.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3>A Web Page</h3>
+
+        <a href="">Shopping Cart {{count}}</a>
+      </div>
+
+      <div class='homesidebar'>
+        <form action='/search' method='post' id="search_bar">
+          {% csrf_token %}
+          <input type="text" placeholder="Product name "name="search" id="search_name">
+        </form>
+        <h4>Categories</h4>
+        {% for categories in category %}
+        <form action='/searchcat' method='post' id="search_bar_cat">
+          {% csrf_token %}
+          <input type="hidden" name="category" value="{{categories.category}}">
+          <input type="submit" class="btn btn-link" value="{{categories.category}}">({{categories.count}})
+        </form>
+        {% endfor %}
+      </div>
+
+      <div class="mainbody">
+        <div id="allitems">
+        </div>
+        <div id="catitems">
+        </div>
+      </div>
+  </body>
+</html>

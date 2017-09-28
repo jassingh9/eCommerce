@@ -1,6 +1,13 @@
-img{
-  width: 20%;
+.images{
+  width: 50%;
+  display: inline-block;
 }
+
+.images img,
+.images p{
+  text-align: center;
+}
+
 .header h3{
   display: inline-block;
 }
@@ -25,4 +32,19 @@ img{
 }
 .btn-primary{
     border-radius: 50%;
+}
+
+.homesidebar{
+  display: inline-block;
+  width: 20%;
+  border: 1px silver solid;
+  margin-top: 1em;
+  padding: .5em;
+  vertical-align: top;
+}
+
+.mainbody{
+  display: inline-block;
+  width: 70%;
+  margin-left: 2em;
 }

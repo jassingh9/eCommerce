@@ -2,26 +2,47 @@
 from __future__ import unicode_literals
 from django.db.models import Count
 from django.shortcuts import render, redirect, HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core import serializers
 from models import *
 
 # Create your views here.
+
 def index(request):
-
-    return redirect('/main')
-
-def main(request):
     context = {
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
-        'items': Item.objects.all(),
+        'items': Item.objects.all()
     }
-    return render(request, 'ecommerce/all_items.html', context)
+    return render(request, 'ecommerce/home.html', context)
+
+def search(request):
+    return render(request, 'ecommerce/all_items.html', {"items": Item.objects.filter(name__startswith=request.POST['search'])})
+
+def searchcat(request):
+    return render(request, 'ecommerce/all_items.html', {'items': Item.objects.filter(category=request.POST['category'])})
+
+def all_items(request):
+    all_items= Item.objects.all()
+    # paginator = Paginator(all_items, 6)
+    # page = request.GET.get('page')
+    # try:
+    #     items = paginator.page(page)
+    # except PageNotAnInteger:
+    #     items = paginator.page(1)
+    # except EmptyPage:
+    #     items = paginator.page(paginator.num_pages)
+
+    context = {
+        'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
+        'items': items
+    }
+    return render(request, 'all_items.html', context)
 
 def item(request, item_id):
     context = {
-        'all_burritos': Item.objects.filter(category="Burrito"),
+        'all_burritos': Item.objects.filter(category="Burrito"), # need to pass in category......
         'item': Item.objects.get(id=item_id)
     }
-
     return render(request, 'ecommerce/item.html', context)
 
 def addcart(request):
