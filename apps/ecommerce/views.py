@@ -27,9 +27,8 @@ def searchcat(request):
     return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
 
 def sortby(request):
-    items=Item.objects.sortby(request.POST['sorted'])
+    items=Item.objects.all.order_by(request.POST['sorted'])
     return render(request, 'ecommerce/all_items.html', {'items': items})
-
 
 def all_items(request):
     items= Item.objects.all()
