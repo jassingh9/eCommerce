@@ -18,15 +18,15 @@
         <h3>A Web Page Store</h3>
         <a href="">Shopping Cart {{count}}</a>
       </div>
-      <div>
-        <div class=col>
+      <div class="one_body">
+        <div class=one_item>
           <a href="/main">Go Back</a>
           <h1>{{item.name}}</h1>
           <img src="../static/ecommerce/img/{{item.image}}" alt="">
-          other images
+          OTHER IMAGES?!?!?!?
         </div>
-        <div class=col>
-          {{item.desc}}
+        <div class=one_add>
+          <p>{{item.desc}}</p>
           <form action="/addcart" method = "post">
             {% csrf_token %}
             <select name="quantity_added">
@@ -36,10 +36,11 @@
             </select>
             <input type="hidden" name="item_id" value="{{item.id}}">
             <input type="submit" value="Buy" class="btn-primary">
-
           </form>
         </div>
-        <div>
+
+
+        <div class='similiar'>
           <h2>Similiar Items</h2>
           {% for burrito in all_burritos %}
           <a href="/show/{{burrito.id}}"><img src="../static/ecommerce/img/{{burrito.image}}" alt=""></a>

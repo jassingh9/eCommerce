@@ -61,10 +61,26 @@ img{
     border-radius: 50%;
 }
 
-
-
 .mainbody{
   display: inline-block;
   width: 80%;
   margin-left: 2em;
+}
+
+.one_item,
+.one_add{
+  display: inline-block;
+  width: 45%;
+}
+
+.one_add{
+  text-align: right;
+  vertical-align: center;
+}
+.one_add p{
+  margin-bottom: 45%;
+}
+
+.similiar img{
+  width: 15%;
 }
