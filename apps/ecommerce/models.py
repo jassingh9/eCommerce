@@ -53,7 +53,7 @@ class UserManager(models.Manager):
         elif any([digit.isalpha() for digit in postData['zipcode']]):
             errors['zipcode'] = "Zipcode must be numbers only."
 
-class Admin(models.Model):
+class Adminuser(models.Model):
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add = True)
@@ -73,7 +73,7 @@ class Shipping(models.Model):
     objects=UserManager()
 
 class Account(models.Model):
-    account = models.OneToOneField(Admin, primary_key=True)
+    account = models.OneToOneField(Adminuser, primary_key=True)
 
 class Billing(models.Model):
     first_name = models.CharField(max_length=255)
@@ -91,6 +91,7 @@ class Item(models.Model):
     desc = models.TextField()
     quantity = models.IntegerField(default=100)
     price = models.DecimalField(max_digits=7, decimal_places=2)
+    popularity = models.IntegerField(default=0)
     quantity_purchased = models.IntegerField(null=True)
     OFFICE = "OFFICE SUPPLIES"
     BURRITO = "BURRITO"
