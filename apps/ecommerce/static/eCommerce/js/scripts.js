@@ -23,16 +23,17 @@ $(document).ready(function(){
       }
     })
   });
-  $(document).on('change', '#sorted', function(){
-    $('#sortby').submit()
-      e.preventDefault()
+  $(document).on('submit', '#sortby', function(e){
+    e.preventDefault()
+    $('#sorted').change(function(){
       $.ajax({
-        url:$(this).attr('action'),
-        method: 'post',
-        data: $(this).serialize(),
-        success: function(serverResponse) {
+        url:'/sortby',
+        method:'post',
+        data: $(this).parent().serialize(),
+        success: function(serverResponse){
           $('#allitems').html(serverResponse)
-      }
+        }
+      })
     })
+  })
   });
-})

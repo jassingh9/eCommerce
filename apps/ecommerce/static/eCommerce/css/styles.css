@@ -87,13 +87,29 @@ img{
 
 .page{
   text-align: center;
+  font-size: 150%;
 }
 
 .searchpages{
   text-align: right;
+  display: inline-block;
 }
 
 .sortby{
+  float: right;
+  display: inline-block;
+}
+
+.stuff h2{
+  display: inline-block;
+}
+
+input{
+  text-decoration: none;
+}
+
+.sortbymain{
+  display: block;
   text-align: right;
   margin-top: 2em;
 }

@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^search$', views.search),
     url(r'^searchcat$', views.searchcat),
     url(r'^sortby$', views.sortby),
+
 ]

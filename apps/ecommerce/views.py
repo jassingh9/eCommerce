@@ -8,17 +8,9 @@ from models import *
 
 # Create your views here.
 
+
 def index(request):
     items= Item.objects.all()
-    paginator = Paginator(items, 6)
-    page = request.GET.get('page', 1)
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-
     context = {
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
         'items': items,
@@ -27,52 +19,20 @@ def index(request):
 
 def search(request):
     items=Item.objects.filter(name__startswith=request.POST['search'])
-    paginator = Paginator(items, 6)
-    page = request.GET.get('page', 1)
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
+
     return render(request, 'ecommerce/all_items.html', {"items": items})
 
 def searchcat(request):
     items=Item.objects.filter(category=request.POST['category'])
-    paginator = Paginator(items, 6)
-    page = request.GET.get('page', 1)
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-    return render(request, 'ecommerce/all_items.html', {'items': items})
+    return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
 
 def sortby(request):
     items=Item.objects.sortby(request.POST['sorted'])
-    paginator = Paginator(items, 6)
-    page = request.GET.get('page', 1)
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
     return render(request, 'ecommerce/all_items.html', {'items': items})
 
 
 def all_items(request):
     items= Item.objects.all()
-    paginator = Paginator(items, 6)
-    page = request.GET.get('page', 1)
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-
     context = {
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
         'items': items,
