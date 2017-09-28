@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>{{ITEMS}}</title>
     {% load static %}
+    {% load mathfilters %}
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -14,27 +15,35 @@
   <body>
     <div class='container'>
       <div class="header">
-        <h3>World Domination a burrito at a time</h3>
-        <a href="">Shopping Cart <{{count}}</a>
+        <h3>A Web Page Store</h3>
+        <a href="">Shopping Cart {{count}}</a>
       </div>
       <div>
         <div class=col>
-          <a href="">Go Back</a>
-          <h1>{{NAME OF ITESM}}</h1>
-          images
+          <a href="/main">Go Back</a>
+          <h1>{{item.name}}</h1>
+          <img src="../static/ecommerce/img/{{item.image}}" alt="">
           other images
         </div>
         <div class=col>
-          Description
-          Price
-          <form action="/buy" method = post>
+          {{item.desc}}
+          <form action="/addcart" method = "post">
+            {% csrf_token %}
+            <select name="quantity_added">
+                <option value="1">1 $({{item.price}})</option>
+                <option value="2">2 $({{item.price|mul:2}})</option>
+                <option value="3">3 $({{item.price|mul:3}})</option>
+            </select>
+            <input type="hidden" name="item_id" value="{{item.id}}">
+            <input type="submit" value="Buy" class="btn-primary">
 
-            buy buy buy
           </form>
         </div>
         <div>
           <h2>Similiar Items</h2>
-          display images in the category
+          {% for burrito in all_burritos %}
+          <a href="/show/{{burrito.id}}"><img src="../static/ecommerce/img/{{burrito.image}}" alt=""></a>
+          {% endfor %}
         </div>
 
       </div>

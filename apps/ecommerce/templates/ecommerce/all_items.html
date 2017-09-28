@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>SHOP TILL YOU DROP</title>
+    <title>A Web Page Shop</title>
     {% load static %}
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -14,33 +14,38 @@
   <body>
     <div class="container">
       <div class="header">
-        <h3>World Domination a burrito at a time</h3>
-        <a href="">Shopping Cart <{{count}}</a>
+        <h3>A Web Page</h3>
+
+        <a href="">Shopping Cart {{count}}</a>
       </div>
       <div class='sidebar'>
         <form action='/search' method='post' id="search_bar">
           {% csrf_token %}
-          <label><input type="text" name="search" value="product name"></label>
+          <label><input type="text" placeholder="Product name "name="search"></label>
         </form>
+
         <h4>Categories</h4>
-        <p>Office Supplies</p>
-        <p>Burritos</p>
-        <p>Dojo Belts</p>
-        <p>Lawn Chairs</p>
+        {% for categories in category %}
+        <p>{{categories.category}} ({{categories.count}})</p>
+        {% endfor %}
       </div>
-      <div>
-        <h1>{{category}} {{page number}}</h1>
+      <div class="all_items">
+
         <form action='/advances' method = 'post'>
           search pages
 
         </form>
-          for items in category.....display.....
+          {% for item in items %}
+          <a href="/show/{{item.id}}"><img src="static/ecommerce/img/{{item.image}}" alt=""></a>
+          <p>{{item.name}} Price {{item.price}}<p>
+          {% endfor %}
       </div>
       <div class=footer>
         <form action='/advances' method = 'post'>
           page numbers
 
         </form>
+
       </div>
 
     </div>
