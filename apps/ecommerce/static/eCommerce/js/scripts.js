@@ -12,15 +12,15 @@ $(document).ready(function(){
       }
     })
   });
-  $(document).on('submit', '#search_cat_bar', function(e){
+  $(document).on('submit', '#search_bar_cat', function(e){
     e.preventDefault()
     $.ajax({
       url:$(this).attr('action'),
       method: 'post',
       data: $(this).serialize(),
       success: function(serverResponse) {
-        $('allitems').html(serverResponse)
+        $('#allitems').html(serverResponse)
       }
     })
-  });
+  })
 })

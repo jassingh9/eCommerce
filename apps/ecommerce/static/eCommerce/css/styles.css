@@ -1,11 +1,38 @@
-.images{
-  width: 50%;
-  display: inline-block;
+img{
+  width: 100%;
+  display: inline-block:
 }
 
-.images img,
+.images{
+  display: inline-block;
+  width: 45%;
+  margin-bottom: 1em;
+  padding: 1em;
+  margin-right: 3em;
+}
+
 .images p{
+  display: block;
   text-align: center;
+  font-size: 110%
+}
+
+.images span{
+  margin-left: 5em;
+}
+
+.homesidebar{
+  display: inline-block;
+  width: 15%;
+  border: 1px silver solid;
+  margin-top: 1em;
+  padding: .5em;
+  vertical-align: top;
+}
+
+.mainbody{
+  display: inline-block;
+  width: 85%;
 }
 
 .header h3{
@@ -34,17 +61,10 @@
     border-radius: 50%;
 }
 
-.homesidebar{
-  display: inline-block;
-  width: 20%;
-  border: 1px silver solid;
-  margin-top: 1em;
-  padding: .5em;
-  vertical-align: top;
-}
+
 
 .mainbody{
   display: inline-block;
-  width: 70%;
+  width: 80%;
   margin-left: 2em;
 }
