@@ -7,8 +7,9 @@ from models import *
 # Create your views here.
 def index(request):
     context= {
-     "items": Item.objects.all()
+     "items": Item.objects.all(),
     }
+
     return render(request, 'ecommerce/index.html', context)
 
 # Create shopping page

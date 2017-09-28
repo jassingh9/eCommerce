@@ -43,8 +43,8 @@
           </form>
         </div>
 
-{% for item in items %}
-  {{item.image}}
+  {% for item in items %}
+  <img src="static/ecommerce/img/{{item.image}}" alt="">
   {% endfor %}
 
 

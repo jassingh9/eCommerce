@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from datetime import date, datetime
+from django.core.files.images import ImageFile
 import re
 import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -126,7 +127,7 @@ class Account(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to = "img/", default = "img/None")
-    desc = models.CharField(max_length=255)
+    desc = models.TextField()
     quantity = models.IntegerField(default=100)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     OFFICE = "OFFICE SUPPLIES"
