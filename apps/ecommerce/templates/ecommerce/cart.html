@@ -37,7 +37,7 @@
             {% for id in cart %}
             {% if id.cart_items__item__id == name.id %}
             <td>{{id.cart_items__quantity__count}}</td>
-            <td>total</td>
+            <td>${{id.cart_items__quantity__count|mul:name.price}}</td>
           </tr>
           {% endif %}
           {% endfor %}

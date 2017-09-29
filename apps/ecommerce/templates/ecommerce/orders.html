@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>ORDERS</title>
     {% load static %}
+    {% load mathfilters %}
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -61,7 +62,7 @@
               <td>{{ orders.billing.first_name }} {{ orders.billing.last_name }}</td>
               <td>{{ orders.created_at }}</td>
               <td>{{ orders.billing.address }} {{ orders.billing.address2 }} {{ orders.billing.city }} {{ orders.billing.state }} {{ orders.billing.zipcode }}</td>
-              <td>total</td>
+              <td>$total</td>
               <td>
                 <select class="" name="status">
                   <option value="inprogress">IN PROGRESS</option>
