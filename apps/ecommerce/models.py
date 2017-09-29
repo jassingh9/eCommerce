@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from datetime import date, datetime
 from django.core.files.images import ImageFile
+from django.core.exceptions import ObjectDoesNotExist
 import re
 import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -18,7 +19,7 @@ class UserManager(models.Manager):
             errors['email'] = "Please enter a valid email in email format"
         else:
             try:
-                user = User.objects.get(email=postData['email'])
+                user = Adminuser.objects.get(email=postData['email'])
                 if bcrypt.checkpw(postData['password'].encode(), user.password.encode()) != True:
                     errors['password'] = "Email and password doesn't match"
             except ObjectDoesNotExist:
