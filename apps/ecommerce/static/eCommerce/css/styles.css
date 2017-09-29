@@ -61,7 +61,6 @@ img{
 .btn-primary{
     border-radius: 50%;
 }
-<<<<<<< Updated upstream
 
 .mainbody{
   display: inline-block;
@@ -77,7 +76,7 @@ img{
 
 .one_add{
   text-align: right;
-  vertical-align: center;
+  vertical-align: bottom;
 }
 .one_add p{
   margin-bottom: 45%;
@@ -116,6 +115,12 @@ input{
   margin-top: 2em;
 }
 
+.sortbymain_main{
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+
 .logout{
   float: right;
   color: white;
@@ -147,30 +152,13 @@ input{
 
 .adminheadertop1{
   text-align: right;
-=======
-table {
-  width: 800px;
-  margin-top: 25px;
-  border: 2px solid black;
-}
-th {
-  height: 25px;
-  width: 100px;
-  background-color: #cccccc;
-  padding: 15px;
 }
 
-tr:nth-child(even){
-  background-color: #f2f2f2
+.allproducts img{
+  width: 50px;
 }
-tr{
-  height: 50px;
-  width: 100px;
-  padding: 15px;
-  text-align: left;
-}
-td{
-  height: 50px;
-  padding-left: 15px;
->>>>>>> Stashed changes
+
+.allproducts td,
+.allproducts th{
+  text-align: center;
 }
