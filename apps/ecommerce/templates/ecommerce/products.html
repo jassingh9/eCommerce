@@ -31,11 +31,9 @@
 
 
       <div class="adminheadertop1">
-        <form action="/add" method='post' id="add">
-          {% csrf_token %}
-          <input type='submit' class="btn btn-primary" value="Add a new product">
-        </form>
+        <a href="/addproduct"> Add a Product</a>
       </div>
+
         <div class="allproducts">
           <div class="infohere">
             <table class="table">

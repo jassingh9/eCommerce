@@ -182,6 +182,9 @@ input{
   border-radius: 5px;
   display: block;
 }
+
+.add_product label{
+  display: block;
 li{
   list-style-type: none;
 }

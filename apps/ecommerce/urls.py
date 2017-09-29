@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^delete$', views.delete),
     url(r'^process$', views.process_order),
     url(r'^confirmation$', views.confirmation),
+    url(r'^addproduct$', views.addproduct),
     url(r'^show_order/(?P<order_id>\d+)$', views.show_order),
 ]

@@ -8,6 +8,7 @@ from django.db.models import Sum
 from django.shortcuts import render, redirect, HttpResponse
 import operator
 from models import *
+from .forms import AddProduct
 
 # Create your views here.
 
@@ -85,6 +86,7 @@ def addcart(request):
 
 def admin(request):
     return render(request, 'ecommerce/index.html')
+
 
 def login(request):
     if request.method == "POST":
@@ -189,6 +191,15 @@ def process_order(request):
 def confirmation(request):
     del request.session['cart']
     return render(request, 'ecommerce/confirmation.html')
+
+def addproduct(request):
+    if request.method == "POST":
+        form = AddProduct(request.POST)
+        if form.is_valid():
+            return redirect('/')
+    else:
+        form= AddProduct()
+    return render(request, 'ecommerce/addproduct.html', {'form':form})
 
 def show_order(request, order_id):
     o = Order.objects.get(id=order_id)
