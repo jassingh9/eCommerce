@@ -13,14 +13,12 @@
   </head>
   <body>
     <div class=container>
-      <div class=admin_header>
-        <h3>Dashboard</h3>
-        <form action="all_order" method=post>
-
-
+      <div class="adminheadertop">
+        <form action="/adminsearch" method="post" id="form_adminpost">
+        {% csrf_token %}
+        <input type="text" placeholder="Search "name="ordersearch" id="order_search_name">
         </form>
-        <a href=''>Log off</a>
-        </div>
+      </div>
         <div class=sidebar>
           Order ID:
           Custerom Shipping

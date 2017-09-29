@@ -26,22 +26,6 @@
         <h1> Welcome to World Domination!</h1>
         <p> Domination only a burrito away! </p>
         <h3> How Can We Help You Dominate Today? </h3>
-        <div class=registration>
-          <form action="/register" method="post">
-            {% csrf_token %}
-            <fieldset>
-              <legend>Registration</legend>
-              <label>First Name:<input type="text" name="first_name"></label>
-              <label>Last Name:<input type="text" name="last_name"></label>
-              <label>Email: <input type="email" name="email"></label>
-              <label>Password: <input type="password" name="password"></label>
-              <p>*Password should be at least 8 characters</p>
-              <label>Confirm PW: <input type="password" name="cpass"></label>
-              <input type="submit" value="Register">
-            </fieldset>
-          </form>
-        </div>
-
         <div class=login>
           <form action="/login" method="post">
             <fieldset>

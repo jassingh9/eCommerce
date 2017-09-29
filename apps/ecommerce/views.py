@@ -56,6 +56,34 @@ def addcart(request):
     while (x <= int(request.POST['quantity_added'])):
          cart.items.add(item)
 
+def admin(request):
+    return render(request, 'ecommerce/index.html')
+
+def login(request):
+    if request.method == "POST":
+        errors = User.objects.basic_login_validator(request.POST)
+        if len(errors):
+            for tag, error in errors.iteritems():
+                messages.error(request,error, extra_tags=tag)
+                return redirect('/')
+        else:
+            user = User.objects.get(email = request.POST['email'])
+            if not 'admin' in request.session:
+                request.session['admin'] = adminuser.id
+    return redirect('/orders')
+
+def orders(request):
+    items = Cart.objects.all()
+    return render(request, 'ecommerce/orders.html', {'orders': items})
+
+def products(request):
+    items = Item.objects.all()
+    return render(request, 'ecommerce/products.html', {'product': items})
+
+def logout(request):
+    del request.session['admin']
+    return redirect('/')
+
 
 
     #

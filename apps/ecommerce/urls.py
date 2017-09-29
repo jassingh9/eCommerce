@@ -8,4 +8,10 @@ urlpatterns = [
     url(r'^search$', views.search),
     url(r'^searchcat$', views.searchcat),
     url(r'^sortby$', views.sortby),
+    url(r'^admin$', views.admin),
+    url(r'^login$', views.login),
+    url(r'^logout$', views.logout),
+    url(r'^orders$', views.orders),
+    url(r'^products$', views.products),
+
 ]

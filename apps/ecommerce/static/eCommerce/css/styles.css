@@ -38,6 +38,7 @@ img{
 .header h3{
   display: inline-block;
 }
+
 .header a{
   float: right;
   margin-top: 20px;
@@ -112,4 +113,37 @@ input{
   display: block;
   text-align: right;
   margin-top: 2em;
+}
+
+.logout{
+  float: right;
+  color: white;
+}
+
+.admin_header{
+  background-color: #990000;
+  height: 10%;
+  padding: 1em;
+}
+.admin_header h3{
+  color: white;
+  display: inline;
+  font-size: 300%;
+  margin-right: 50px;
+}
+
+.admin_header .link{
+  color: white;
+  font-size: 200%;
+  margin-right: 2em;
+}
+
+
+.adminheadertop{
+  margin-top: 1em;
+  display: inline-block;
+}
+
+.adminheadertop1{
+  text-align: right;
 }
