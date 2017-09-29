@@ -88,6 +88,15 @@ def orders(request):
     items = Cart.objects.all()
     return render(request, 'ecommerce/orders.html', {'orders': items})
 
+def edit(request):
+    return redirect('/products')
+
+def delete(request):
+    if request.method == "POST":
+        i = Item.objects.get(id = request.POST['id'])
+        i.delete()
+    return redirect('/products')
+
 def products(request):
     items = Item.objects.all()
     return render(request, 'ecommerce/products.html', {'product': items})

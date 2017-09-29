@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Products</title>
     {% load static %}
+    {% load el_pagination_tags %}}
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -48,6 +49,7 @@
             </tr>
           </thead>
           <tbody>
+            {% paginate 6 product %}{% get_pages %}
             {% for item in product %}
             <tr>
               <td><img src="static/ecommerce/img/{{item.image}}" alt=""></td>
@@ -72,6 +74,7 @@
           </tbody>
         </table>
       </div>
+      <div class="page">{{ pages }}</div>
       </div>
     </div>
   </body>
