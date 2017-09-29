@@ -142,8 +142,8 @@ def add(request):
     return redirect('/products')
 
 def logout(request):
-    del request.session['admin']
-    return redirect('/')
+
+    return redirect('/admin')
 
 
 def cart(request):
@@ -220,20 +220,20 @@ def addproduct(request):
     return render(request, 'ecommerce/addproduct.html', {'form':form})
 
 def show_order(request, order_id):
-    context = {
-        "order_details": Order.objects.get(id=order_id)
-    }
-    a = Cart.objects.filter(pk=request.session['cart']).values('cart_items__item__id').annotate(Count('cart_items__quantity'))
-    b = CartItem.objects.filter(cart=request.session['cart']).aggregate(Sum('quantity'))
+    o = Order.objects.get(id=order_id)
+    cart_id = o.cart.id
+    print cart_id
+    a = Cart.objects.filter(pk=cart_id).values('cart_items__item__id').annotate(Count('cart_items__quantity'))
+    item_info = list(a)
     item_list = []
     c = operator.itemgetter('cart_items__item__id')
     for cart_items__quantity in item_info:
         item_list.append(c(cart_items__quantity))
-    print item_list
 
     context = {
         "cart": list(a),
         "item": Item.objects.filter(id__in=item_list),
+        "order_details": Order.objects.get(id=order_id)
     }
     return render(request, 'ecommerce/specific_order.html', context)
 # Create shopping page

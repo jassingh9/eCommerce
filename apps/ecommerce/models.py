@@ -136,3 +136,5 @@ class Order(models.Model):
         (CANCEL, "Cancelled"),
     )
     status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")
+    def __repr__(self):
+        return "<Order object: {} {}>".format(self.billing, self.cart)

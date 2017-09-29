@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Order</title>
     {% load static %}
+    {% load mathfilters %}
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -57,14 +58,22 @@
               </tr>
             </thead>
             <tbody>
+              {% for name in item %}
               <tr>
-                <td> items in cart</td>
+                <td>{{ name.id }}</td>
+                <td>{{name.name}}</td>
+                <td>${{ name.price }}</td></td>
+                {% for id in cart %}
+                {% if id.cart_items__item__id == name.id %}
+                <td>{{id.cart_items__quantity__count}}</td>
+                <td>${{id.cart_items__quantity__count|mul:name.price}}</td>
               </tr>
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
             </tbody>
           </table>
         </div>
-        </div>
-
         <div>
           Status
         </div>
@@ -73,6 +82,9 @@
           SHIPPING
           TOTAL
         </div>
+        </div>
+
+
     </div>
   </body>
 </html>
