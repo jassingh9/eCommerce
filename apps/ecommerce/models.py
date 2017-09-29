@@ -104,13 +104,18 @@ class Item(models.Model):
         (LAWNCHAIR, "Lawn Chair"),
     )
     category = models.CharField(max_length=40, choices=CATEGORY_CHOICES, default="OFFICE")
+    def __repr__(self):
+        return "<Item object: {}>".format(self.name)
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
+<<<<<<< Updated upstream
 
     items = models.ManyToManyField(Item, related_name="item")
     quantity = models.ForeignKey(Item, related_name="items_in_cart", null=True)
+=======
+>>>>>>> Stashed changes
     PROGRESS = "IN PROGRESS"
     SHIP = "SHIPPED"
     CANCEL = "CANCELLED"
@@ -121,3 +126,10 @@ class Cart(models.Model):
         (CANCEL, "Cancelled"),
     )
     status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, related_name="cart_items", null=True)
+    item = models.ForeignKey(Item, related_name="items", null=True)
+    quantity = models.IntegerField(null=True)
+    def __repr__(self):
+        return "<CartItem object: {} {} {}>".format(self.cart, self.item, self.quantity)

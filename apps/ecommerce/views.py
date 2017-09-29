@@ -1,15 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
 from django.db.models import Count
+from django.db.models import Sum
 from django.shortcuts import render, redirect, HttpResponse
+<<<<<<< Updated upstream
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
+=======
+import operator
+>>>>>>> Stashed changes
 from models import *
 
 # Create your views here.
 
 
 def index(request):
+<<<<<<< Updated upstream
     items= Item.objects.all()
     context = {
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
@@ -25,6 +34,9 @@ def search(request):
 def searchcat(request):
     items=Item.objects.filter(category=request.POST['category'])
     return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
+=======
+    return redirect('/main')
+>>>>>>> Stashed changes
 
 def sortby(request):
     items=Item.objects.all.order_by(request.POST['sorted'])
@@ -46,16 +58,21 @@ def item(request, item_id):
     return render(request, 'ecommerce/item.html', context)
 
 def addcart(request):
-    if 'user' not in request.session:
-        Cart.objects.create()
-        request.session['user'] = Cart.objects.last()
-    item = Item.objects.get(id=request.POST['item_id'])
-    print request.POST['quantity_added']
-    cart = Cart.objects.last()
-    x = 1
-    while (x <= int(request.POST['quantity_added'])):
-         cart.items.add(item)
+    qty = request.POST['quantity_added']
+    if not 'cart' in request.session:
+        new_cart = Cart.objects.create()
+        new_cartitem = CartItem.objects.create(
+        quantity=qty,
+        item = Item.objects.get(id=request.POST['item_id']),
+        cart = new_cart)
+        request.session['cart'] = new_cart.id
+    else:
+        CartItem.objects.create(
+        cart = Cart.objects.get(id=request.session['cart']) ,
+        quantity= qty,
+        item = Item.objects.get(id=request.POST['item_id']))
 
+<<<<<<< Updated upstream
 def admin(request):
     return render(request, 'ecommerce/index.html')
 
@@ -84,24 +101,38 @@ def logout(request):
     del request.session['admin']
     return redirect('/')
 
+=======
+    return redirect('/cart')
+>>>>>>> Stashed changes
 
+def cart(request):
+    a = Cart.objects.filter(pk=request.session['cart']).values('cart_items__item__id').annotate(Count('cart_items__quantity'))
+    b = CartItem.objects.filter(cart=request.session['cart']).aggregate(Sum('quantity'))
+    print b
+    # a = CartItem.objects.annotate(Count('quantity')).values("item").filter(cart=request.session['cart'])
+    item_info = list(a)
+    print list(b)
+    item_list = []
+    c = operator.itemgetter('cart_items__item__id')
+    for cart_items__quantity in item_info:
+        item_list.append(c(cart_items__quantity))
+    print item_list
 
-    #
-    # cart.quantity = cart.quantity - int(request.POST['quantity_added'])
-    # cart.save()
-    # if "carts" not in request.session:
-    #     request.session['carts'] = Cart.objects.create(
-    #     id = request.session['user'],
-    #     items = cart.id
-    #     )
-    # c = Cart.objects.last()
-    # c.quantity_purchased = request.POST['quantity_added']
+    # for item in item_info:
+    #     print [(items['item.cart_items__item__id'],items['item.cart_items__quantity']) for items in item_info]
 
-        #add to the cart if made
+        # item['item']= Item.objects.filter(id=item.cart_items__item__id)
+        # item_info.append(item)
+    # print item_info
+    # for item_info in b
+    # print item_info
+    context = {
+        "cart": list(a),
+        "item": Item.objects.filter(id__in=item_list)
+    }
 
-    return redirect('/main')
-
-
+    # print context
+    return render(request, 'ecommerce/cart.html', context)
 
 # Create shopping page
 # View all items page with categories and search
