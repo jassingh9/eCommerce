@@ -17,7 +17,7 @@
     <div class="container">
       <div class="header">
         <h3>A Web Page</h3>
-        {% if request.session.user %}
+        {% if request.session.cart %}
         <a href="/cart">Shopping Cart {{count}}</a>
         {% endif %}
       </div>
