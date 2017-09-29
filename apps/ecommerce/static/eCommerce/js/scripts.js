@@ -49,19 +49,4 @@ $(document).ready(function(){
       }
     })
   })
-  $(document).ready(function(){
-    $('#form_adminpost').submit(function(e){
-    e.preventDefault()
-    });
-    $('#order_search_name').keyup(function(){
-    $.ajax({
-      url: '/search',
-      method: 'post',
-      data: $(this).parent().serialize(),
-      success: function(serverResponse) {
-        $('.infohere').html(serverResponse)
-        }
-      })
-    });
-  });
 });
