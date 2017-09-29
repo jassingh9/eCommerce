@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'^confirmation$', views.confirmation),
     url(r'^addproduct$', views.addproduct),
     url(r'^show_order/(?P<order_id>\d+)$', views.show_order),
+    url(r'^adminordersearch$', views.show_order),
+    url(r'^orders_search.html$', views.orders_search),
+    url(r'^sortbystatus$', views.sortbystatus),
 ]

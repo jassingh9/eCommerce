@@ -28,6 +28,21 @@ $(document).ready(function(){
     })
   });
 
+  $('#form_adminordersearch').submit(function(e){
+  e.preventDefault()
+  });
+  $('#adminordersearch_name').keyup(function(){
+  $.ajax({
+    url: '/adminordersearch',
+    method: 'post',
+    data: $(this).parent().serialize(),
+    success: function(serverResponse) {
+      console.log(serverResponse)
+      $('.infohere').html(serverResponse)
+      }
+    })
+  });
+
   $(document).on('submit', '#search_bar_cat', function(e){
     e.preventDefault()
     $.ajax({
@@ -46,6 +61,16 @@ $(document).ready(function(){
       data: $(this).parent().serialize(),
       success: function(serverResponse){
         $('#allitems').html(serverResponse)
+      }
+    })
+  })
+  $('#sortedstatus').change(function(){
+    $.ajax({
+      url:'/sortbystatus',
+      method: 'post',
+      data: $(this).parent().serialize(),
+      success: function(serverResponse){
+        $('#infohere').html(serverResponse)
       }
     })
   })

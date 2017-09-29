@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <title>ORDERS</title>
     {% load static %}
+    {% load el_pagination_tags %}
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'eCommerce/css/styles.css' %}">
+    <script type="text/javascript" src="{% static 'ecommerce/js/scripts.js' %}"></script>
   </head>
   <body>
     <div class=container>
@@ -20,27 +22,26 @@
         <a class="logout" href='/logout'>Log off</a>
       </div>
 
-      <div class="infohere">
         <div class="adminheadertop">
-          <form action="/adminsearch" method="post" id="form_adminpost">
+          <form action="/adminordersearch" method="post" id="form_adminordersearch">
           {% csrf_token %}
-          <input type="text" placeholder="Search "name="ordersearch" id="order_search_name">
+          <input type="text" placeholder="Search "name="adminordersearch" id="adminordersearch_name">
           </form>
         </div>
 
         <div class="adminheadertop1">
-          <form action="/sortby_status" method='post' id="sortby_status">
+          <form action="/sortbystatus" method='post' id="sortbystatus">
             {% csrf_token %}
-            <select name="status" id=status>
-                <option value="Show">Show All</option>
-                <option value="In Progress">Order in Process</option>
+            <select name="sortedstatus" id=sortedstatus>
+                <option value="All">Show All</option>
+                <option value="In Progress">In Progress</option>
                 <option value="Shipped">Shipped</option>
                 <option value="Cancelled">Cancelled</option>
             </select>
           </form>
         </div>
 
-
+        <div class="infohere">
         <table class="table">
           <thead>
 
@@ -73,7 +74,7 @@
             {% endfor %}
           </tbody>
         </table>
-
+        </div>
       </div>
     </div>
   </body>

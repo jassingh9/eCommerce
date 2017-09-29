@@ -30,6 +30,10 @@ def adminsearch(request):
     items=Item.objects.filter(name__startswith=request.POST['adminsearch'])
     return render(request, 'ecommerce/products_search.html', {"items": items})
 
+def adminordersearch(request):
+    order = Order.objects.filter(id = request.POST['adminordersearch'])
+    return render(request, 'ecommerce/orders_search.html', {'items':items})
+
 def searchcat(request):
     items=Item.objects.filter(category=request.POST['category'])
     return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
@@ -39,6 +43,7 @@ def sortby(request):
         items=Item.objects.all().order_by(request.POST['sorted']).reverse()
     else:
         items=Item.objects.all().order_by(request.POST['sorted'])
+
     category = request.POST['sorted']
     context={
         'items': items,
@@ -46,10 +51,23 @@ def sortby(request):
     }
     return render(request, 'ecommerce/all_items.html', context)
 
+def sortbystatus(request):
+    print Order.objects.filter(status = "In Progress")
+    if request.POST['sortedstatus'] == "All":
+        orders = Order.objects.all()
+    else:
+        orders = Order.objects.filter(status=request.POST['sortedstatus'])
+    return render(request, 'ecommerce/orders_search.html', {'orders':orders})
+
 def products_search(request):
     items=Items.objects.all()
     context = {"items":items}
     return render(request, 'ecommerce/products_search.html', context)
+
+def orders_search(request):
+    order = Order.objects.all()
+    context={"order_details": order}
+    return render(request, 'ecommerce/order_search.html', context)
 
 def all_items(request):
     items= Item.objects.all()

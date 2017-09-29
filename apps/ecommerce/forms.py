@@ -1,5 +1,8 @@
 from django import forms
+from django.forms import ModelForm
+from models import Item
+
 
 class AddProduct(forms.Form):
-    Name = forms.CharField(label='Name', max_length=100)
-    Desc = forms.CharField(label='Description', max_length=500)
+    
+    fields = ['name', 'image', 'description', 'quantity', 'price', 'category']

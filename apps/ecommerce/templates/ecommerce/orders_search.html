@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Billing Address</th>
+      <th>Total</th>
+      <th>Status</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    {% for orders in order_details %}
+    <tr>
+      <td><a href="/show_order/{{ orders.id }}">{{ orders.id }}</a></td>
+      <td>{{ orders.billing.first_name }} {{ orders.billing.last_name }}</td>
+      <td>{{ orders.created_at }}</td>
+      <td>{{ orders.billing.address }} {{ orders.billing.address2 }} {{ orders.billing.city }} {{ orders.billing.state }} {{ orders.billing.zipcode }}</td>
+      <td>total</td>
+      <td>
+        <select class="" name="status">
+          <option value="inprogress">IN PROGRESS</option>
+          <option value="shipped">SHIPPED</option>
+          <option value="cancel">CANCELLED</option>
+        </select>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
