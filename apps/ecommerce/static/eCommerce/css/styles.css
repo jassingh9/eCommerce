@@ -189,6 +189,12 @@ li{
   width: 850px;
   display: inline-block;
 }
+.left_content {
+  display: inline-block;
+  width: 800px;
+  vertical-align: top;
+  margin: 25px;
+}
 .order_sidebar{
   display: inline-block;
   border: 1px solid black;
