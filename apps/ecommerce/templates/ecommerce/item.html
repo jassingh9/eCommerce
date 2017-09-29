@@ -16,7 +16,9 @@
     <div class='container'>
       <div class="header">
         <h3>A Web Page Store</h3>
+        {% if request.session.user %}
         <a href="/cart">Shopping Cart {{count}}</a>
+        {% endif %}
       </div>
       <div class="one_body">
         <div class=one_item>
