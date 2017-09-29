@@ -6,19 +6,13 @@ from django.core import serializers
 from django.db.models import Count
 from django.db.models import Sum
 from django.shortcuts import render, redirect, HttpResponse
-<<<<<<< Updated upstream
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core import serializers
-=======
 import operator
->>>>>>> Stashed changes
 from models import *
 
 # Create your views here.
 
 
 def index(request):
-<<<<<<< Updated upstream
     items= Item.objects.all()
     context = {
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
@@ -34,9 +28,8 @@ def search(request):
 def searchcat(request):
     items=Item.objects.filter(category=request.POST['category'])
     return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
-=======
-    return redirect('/main')
->>>>>>> Stashed changes
+
+
 
 def sortby(request):
     items=Item.objects.all.order_by(request.POST['sorted'])
@@ -72,7 +65,6 @@ def addcart(request):
         quantity= qty,
         item = Item.objects.get(id=request.POST['item_id']))
 
-<<<<<<< Updated upstream
 def admin(request):
     return render(request, 'ecommerce/index.html')
 
@@ -101,9 +93,6 @@ def logout(request):
     del request.session['admin']
     return redirect('/')
 
-=======
-    return redirect('/cart')
->>>>>>> Stashed changes
 
 def cart(request):
     a = Cart.objects.filter(pk=request.session['cart']).values('cart_items__item__id').annotate(Count('cart_items__quantity'))

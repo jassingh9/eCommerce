@@ -110,12 +110,9 @@ class Item(models.Model):
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-<<<<<<< Updated upstream
 
     items = models.ManyToManyField(Item, related_name="item")
     quantity = models.ForeignKey(Item, related_name="items_in_cart", null=True)
-=======
->>>>>>> Stashed changes
     PROGRESS = "IN PROGRESS"
     SHIP = "SHIPPED"
     CANCEL = "CANCELLED"

@@ -1,6 +1,4 @@
-<<<<<<< Updated upstream
 {% load el_pagination_tags %}
-
 <div class="stuff">
   <h2>{{category}} (page {{page.current}})</h2>
   <div class=sortby>
@@ -20,58 +18,6 @@
     <div class="images">
     <a href="/show/{{item.id}}"><img src="static/ecommerce/img/{{item.image}}" alt=""></a>
     <p>{{item.name}} <span>Price ${{item.price}}</span><p>
-=======
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>A Web Page Shop</title>
-    {% load static %}
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'eCommerce/css/styles.css' %}">
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h3>A Web Page</h3>
-
-        <a href="/cart">Shopping Cart {{count}}</a>
-      </div>
-      <div class='sidebar'>
-        <form action='/search' method='post' id="search_bar">
-          {% csrf_token %}
-          <label><input type="text" placeholder="Product name "name="search"></label>
-        </form>
-
-        <h4>Categories</h4>
-        {% for categories in category %}
-        <p>{{categories.category}} ({{categories.count}})</p>
-        {% endfor %}
-      </div>
-      <div class="all_items">
-
-        <form action='/advances' method = 'post'>
-          search pages
-
-        </form>
-          {% for item in items %}
-          <a href="/show/{{item.id}}"><img src="static/ecommerce/img/{{item.image}}" alt=""></a>
-          <p>{{item.name}} Price {{item.price}}<p>
-          {% endfor %}
-      </div>
-      <div class=footer>
-        <form action='/advances' method = 'post'>
-          page numbers
-
-        </form>
-
-      </div>
-
->>>>>>> Stashed changes
     </div>
     {% endfor %}
   </div>
