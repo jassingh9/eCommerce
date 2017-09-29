@@ -17,13 +17,13 @@ class UserManager(models.Manager):
             errors['email'] = "Please enter an email"
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Please enter a valid email in email format"
-        else:
-            try:
-                user = Adminuser.objects.get(email=postData['email'])
-                if bcrypt.checkpw(postData['password'].encode(), user.password.encode()) != True:
-                    errors['password'] = "Email and password doesn't match"
-            except ObjectDoesNotExist:
-                errors['password'] = "Email is not registered, please register first"
+        # else:
+        #     try:
+        #         user = Adminuser.objects.get(email=postData['email'])
+        #         if bcrypt.checkpw(postData['password'].encode(), user.password.encode()) != True:
+        #             errors['password'] = "Email and password doesn't match"
+        #     except ObjectDoesNotExist:
+        #         errors['password'] = "Email is not registered, please register first"
         if len(postData['password']) == 0:
             errors['password'] = "Please enter a password"
         return errors;
@@ -86,21 +86,6 @@ class Billing(models.Model):
     zipcode = models.CharField(max_length=255)
     objects=UserManager()
 
-class Order(models.Model):
-    account = models.OneToOneField(Adminuser, null=True)
-    billing = models.OneToOneField(Billing, related_name="orders")
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
-    PROGRESS = "IN PROGRESS"
-    SHIP = "SHIPPED"
-    CANCEL = "CANCELLED"
-    STATUS_CHOICES = (
-        (PROGRESS, "In Progress"),
-        (SHIP, "Shipped"),
-        (CANCEL, "Cancelled"),
-    )
-    status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")
-
 class Item(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to = "img/", default = "img/None")
@@ -134,3 +119,20 @@ class CartItem(models.Model):
     quantity = models.IntegerField(null=True)
     def __repr__(self):
         return "<CartItem object: {} {} {}>".format(self.cart, self.item, self.quantity)
+
+class Order(models.Model):
+    account = models.OneToOneField(Adminuser, null=True)
+    billing = models.OneToOneField(Billing, related_name="bill_orders")
+    shipping = models.OneToOneField(Shipping, related_name="ship_orders", null=True)
+    cart = models.OneToOneField(Cart, related_name="order_cart", null=True)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    PROGRESS = "IN PROGRESS"
+    SHIP = "SHIPPED"
+    CANCEL = "CANCELLED"
+    STATUS_CHOICES = (
+        (PROGRESS, "In Progress"),
+        (SHIP, "Shipped"),
+        (CANCEL, "Cancelled"),
+    )
+    status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")

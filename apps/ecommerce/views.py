@@ -91,21 +91,20 @@ def admin(request):
 def login(request):
     if request.method == "POST":
         errors = Adminuser.objects.basic_login_validator(request.POST)
-        if len(errors):
-            for tag, error in errors.iteritems():
-                messages.error(request,error, extra_tags=tag)
-                return redirect('/')
-        else:
-            user = Adminuser.objects.get(email = request.POST['email'])
-            if not 'admin' in request.session:
-                request.session['admin'] = adminuser.id
+        # if len(errors):
+        #     for tag, error in errors.iteritems():
+        #         messages.error(request,error, extra_tags=tag)
+        #         return redirect('/')
+        # else:
+        #     user = Adminuser.objects.get(email = request.POST['email'])
+        #     if not 'admin' in request.session:
+        #         request.session['admin'] = adminuser.id
     return redirect('/orders')
 
 def orders(request):
     context = {
-        order_details: Order.objects.all()
+        "order_details": Order.objects.all()
     }
-
     return render(request, 'ecommerce/orders.html', context)
 
 def edit(request):
@@ -135,6 +134,7 @@ def cart(request):
     print b
     # a = CartItem.objects.annotate(Count('quantity')).values("item").filter(cart=request.session['cart'])
     item_info = list(a)
+    print list(a)
     print list(b)
     item_list = []
     c = operator.itemgetter('cart_items__item__id')
@@ -152,7 +152,7 @@ def cart(request):
     # print item_info
     context = {
         "cart": list(a),
-        "item": Item.objects.filter(id__in=item_list)
+        "item": Item.objects.filter(id__in=item_list),
     }
 
     # print context
@@ -160,26 +160,30 @@ def cart(request):
 
 def process_order(request):
 
-    Shipping.objects.create(
+    ship = Shipping.objects.create(
     first_name=request.POST['first_name'],
     last_name=request.POST['last_name'],
     address=request.POST['address'],
     address2=request.POST['address2'],
     city=request.POST['city'],
+    state=request.POST['state'],
     zipcode=request.POST['zipcode']
     )
 
     bill = Billing.objects.create(
-    first_name=request.POST['first_name'],
-    last_name=request.POST['last_name'],
-    address=request.POST['address'],
-    address2=request.POST['address2'],
-    city=request.POST['city'],
-    zipcode=request.POST['zipcode']
+    first_name=request.POST['bfirst_name'],
+    last_name=request.POST['blast_name'],
+    address=request.POST['baddress'],
+    address2=request.POST['baddress2'],
+    city=request.POST['bcity'],
+    state=request.POST['bstate'],
+    zipcode=request.POST['bzipcode']
     )
 
     Order.objects.create(
     billing = bill,
+    shipping = ship,
+    cart = Cart.objects.get(id=request.session['cart'])
     )
 
     return redirect('/confirmation')
@@ -197,6 +201,23 @@ def addproduct(request):
         form= AddProduct()
     return render(request, 'ecommerce/addproduct.html', {'form':form})
 
+def show_order(request, order_id):
+    context = {
+        "order_details": Order.objects.get(id=order_id)
+    }
+    a = Cart.objects.filter(pk=request.session['cart']).values('cart_items__item__id').annotate(Count('cart_items__quantity'))
+    b = CartItem.objects.filter(cart=request.session['cart']).aggregate(Sum('quantity'))
+    item_list = []
+    c = operator.itemgetter('cart_items__item__id')
+    for cart_items__quantity in item_info:
+        item_list.append(c(cart_items__quantity))
+    print item_list
+
+    context = {
+        "cart": list(a),
+        "item": Item.objects.filter(id__in=item_list),
+    }
+    return render(request, 'ecommerce/specific_order.html', context)
 # Create shopping page
 # View all items page with categories and search
 # Specific Item Page to buy

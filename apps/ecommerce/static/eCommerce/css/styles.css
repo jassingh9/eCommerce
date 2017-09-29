@@ -185,4 +185,25 @@ input{
 
 .add_product label{
   display: block;
+li{
+  list-style-type: none;
+}
+.order_table {
+  width: 850px;
+  display: inline-block;
+}
+.left_content {
+  display: inline-block;
+  width: 800px;
+  vertical-align: top;
+  margin: 25px;
+}
+.order_sidebar{
+  display: inline-block;
+  border: 1px solid black;
+  margin-top: 25px;
+  padding: 15px;
+}
+.order_sidebar h5{
+  font-weight: bold;
 }
