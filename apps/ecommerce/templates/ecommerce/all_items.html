@@ -1,17 +1,5 @@
-{% load el_pagination_tags %}
 <div class="stuff">
   <h2>{{category}}</h2>
-  <div class=sortby>
-    <p>Sorted By:</p>
-    <form action="/sortby" method='post' id="sortby">
-      {% csrf_token %}
-      <select name="sorted" id=sorted>
-          <option value=""></option>
-          <option value="price">Price</option>
-          <option value="popularity">Most Popular</option>
-      </select>
-    </form>
-  </div>
 
   <div class="catitems endless_page_template">
     {% for item in items %}
@@ -20,5 +8,6 @@
     <p>{{item.name}} <span>Price ${{item.price}}</span><p>
     </div>
     {% endfor %}
+    <div class="page">{{ pages }}</div>
   </div>
 </div>

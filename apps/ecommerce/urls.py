@@ -3,6 +3,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^all_items.html$', views.all_items),
+    url(r'^adminsearch$', views.adminsearch),
+    url(r'^products_search.html$', views.products_search),
     url(r'^show/(?P<item_id>\d+)$', views.item),
     url(r'^addcart$', views.addcart),
     url(r'^search$', views.search),
@@ -16,5 +18,5 @@ urlpatterns = [
     url(r'^cart$', views.cart),
     url(r'^edit$', views.edit),
     url(r'^delete$', views.delete),
-
+    url(r'^add$', views.add),
 ]

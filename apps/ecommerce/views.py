@@ -22,18 +22,33 @@ def index(request):
 
 def search(request):
     items=Item.objects.filter(name__startswith=request.POST['search'])
-
     return render(request, 'ecommerce/all_items.html', {"items": items})
+
+
+def adminsearch(request):
+    items=Item.objects.filter(name__startswith=request.POST['adminsearch'])
+    return render(request, 'ecommerce/products_search.html', {"items": items})
 
 def searchcat(request):
     items=Item.objects.filter(category=request.POST['category'])
     return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
 
-
-
 def sortby(request):
-    items=Item.objects.all.order_by(request.POST['sorted'])
-    return render(request, 'ecommerce/all_items.html', {'items': items})
+    if request.POST['sorted'] == 'popularity':
+        items=Item.objects.all().order_by(request.POST['sorted']).reverse()
+    else:
+        items=Item.objects.all().order_by(request.POST['sorted'])
+    category = request.POST['sorted']
+    context={
+        'items': items,
+        'category': category
+    }
+    return render(request, 'ecommerce/all_items.html', context)
+
+def products_search(request):
+    items=Items.objects.all()
+    context = {"items":items}
+    return render(request, 'ecommerce/products_search.html', context)
 
 def all_items(request):
     items= Item.objects.all()
@@ -41,7 +56,7 @@ def all_items(request):
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
         'items': items,
     }
-    return render(request, 'all_items.html', context)
+    return render(request, 'ecommerce/all_items.html', context)
 
 def item(request, item_id):
     c = Item.objects.get(id=item_id)
@@ -99,7 +114,10 @@ def delete(request):
 
 def products(request):
     items = Item.objects.all()
-    return render(request, 'ecommerce/products.html', {'product': items})
+    return render(request, 'ecommerce/products.html', {'items': items})
+
+def add(request):
+    return redirect('/products')
 
 def logout(request):
     del request.session['admin']
