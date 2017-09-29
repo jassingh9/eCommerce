@@ -22,8 +22,8 @@ def index(request):
 
 def search(request):
     items=Item.objects.filter(name__startswith=request.POST['search'])
-    return render(request, 'ecommerce/all_items.html', {"items": items})
 
+    return render(request, 'ecommerce/all_items.html', {"items": items})
 
 def adminsearch(request):
     items=Item.objects.filter(name__startswith=request.POST['adminsearch'])
@@ -33,22 +33,11 @@ def searchcat(request):
     items=Item.objects.filter(category=request.POST['category'])
     return render(request, 'ecommerce/all_items.html', {'items': items, 'category': request.POST['category']})
 
-def sortby(request):
-    if request.POST['sorted'] == 'popularity':
-        items=Item.objects.all().order_by(request.POST['sorted']).reverse()
-    else:
-        items=Item.objects.all().order_by(request.POST['sorted'])
-    category = request.POST['sorted']
-    context={
-        'items': items,
-        'category': category
-    }
-    return render(request, 'ecommerce/all_items.html', context)
 
-def products_search(request):
-    items=Items.objects.all()
-    context = {"items":items}
-    return render(request, 'ecommerce/products_search.html', context)
+
+def sortby(request):
+    items=Item.objects.all.order_by(request.POST['sorted'])
+    return render(request, 'ecommerce/all_items.html', {'items': items})
 
 def all_items(request):
     items= Item.objects.all()
@@ -56,7 +45,7 @@ def all_items(request):
         'category': Item.objects.values('category').distinct().annotate(count=Count('category')),
         'items': items,
     }
-    return render(request, 'ecommerce/all_items.html', context)
+    return render(request, 'all_items.html', context)
 
 def item(request, item_id):
     c = Item.objects.get(id=item_id)
@@ -101,7 +90,7 @@ def login(request):
 
 def orders(request):
     context = {
-        order_details: Order.objects.all()
+        "order_details": Order.objects.all()
     }
 
     return render(request, 'ecommerce/orders.html', context)
@@ -117,15 +106,11 @@ def delete(request):
 
 def products(request):
     items = Item.objects.all()
-    return render(request, 'ecommerce/products.html', {'items': items})
-
-def add(request):
-    return redirect('/products')
+    return render(request, 'ecommerce/products.html', {'product': items})
 
 def logout(request):
     del request.session['admin']
     return redirect('/')
-
 
 def cart(request):
     a = Cart.objects.filter(pk=request.session['cart']).values('cart_items__item__id').annotate(Count('cart_items__quantity'))
@@ -186,6 +171,11 @@ def confirmation(request):
     del request.session['cart']
     return render(request, 'ecommerce/confirmation.html')
 
+def show_order(request, order_id):
+    context = {
+        "order_details": Order.objects.get(id=order_id)
+    }
+    return render(request, 'ecommerce/specific_order.html')
 # Create shopping page
 # View all items page with categories and search
 # Specific Item Page to buy

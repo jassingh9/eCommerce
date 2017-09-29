@@ -13,20 +13,40 @@
   </head>
   <body>
     <div class=container>
+      <div class=admin_header>
+        <h3>Dashboard</h3>
+        <a class=link href="/orders">Orders</a>
+        <a class=link href="/products">Products</a>
+        <a class="logout" href='/logout'>Log off</a>
+      </div>
       <div class="adminheadertop">
         <form action="/adminsearch" method="post" id="form_adminpost">
         {% csrf_token %}
-        <input type="text" placeholder="Search "name="ordersearch" id="order_search_name">
+
         </form>
       </div>
-        <div class=sidebar>
-          Order ID:
-          Custerom Shipping
+        <div class="order_sidebar">
+          <ul>
+            <li><h5>Order ID: {{ order_details.id }}</h5></li>
+            <p><li><h5>Customer shipping info:</h5></li></p>
+            <li>Name: {{ order_details.shipping.first_name }} {{ order_details.shipping.last_name }}</li>
+            <li>Address: {{ order_details.shipping.address }} {{ orders.shipping.address2 }}</li>
+            <li>City: {{ order_details.shipping.city }}</li>
+            <li>State: {{ order_details.shipping.state }}</li>
+            <li>Zip: {{ order_details.shipping.zipcode }}</li>
 
-          s........
+            <p><li><h5>Customer billing info:</h5></li></p>
+            <li>Name: {{ order_details.billing.first_name }} {{ order_details.billing.last_name }}</li>
+            <li>Address: {{  order_details.billing.address }} {{  order_details.billing.address2 }}</li>
+            <li>City: {{  order_details.billing.city }}</li>
+            <li>State: {{  order_details.billing.state }}</li>
+            <li>Zip: {{  order_details.billing.zipcode }}</li>
+          </ul>
+
         </div>
-        <div>
-          <table>
+        <div class ="left_content">
+          <div class="order_table">
+          <table class="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -42,6 +62,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
         </div>
 
         <div>

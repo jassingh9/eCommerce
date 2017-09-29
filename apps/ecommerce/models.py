@@ -88,7 +88,8 @@ class Billing(models.Model):
 
 class Order(models.Model):
     account = models.OneToOneField(Adminuser, null=True)
-    billing = models.OneToOneField(Billing, related_name="orders")
+    billing = models.OneToOneField(Billing, related_name="bill_orders")
+    shipping = models.OneToOneField(Shipping, related_name="ship_orders", null=True)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     PROGRESS = "IN PROGRESS"
