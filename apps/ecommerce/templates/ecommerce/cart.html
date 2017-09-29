@@ -31,7 +31,7 @@
           {% for name in item %}
           <tr>
             <td>{{name.name}}</td>
-            <td>{{ name.price }}</td></td>
+            <td>${{ name.price }}</td></td>
             {% for id in cart %}
             {% if id.cart_items__item__id == name.id %}
             <td>{{id.cart_items__quantity__count}}</td>
@@ -44,7 +44,7 @@
         </tbody>
       </table>
       {{total}}
-      <a href="/main"> Continue Shopping</a>
+      <a href="/"> Continue Shopping</a>
     </div>
     <div>
       <form action="info" method=post>

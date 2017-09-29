@@ -92,7 +92,6 @@ class Item(models.Model):
     quantity = models.IntegerField(default=100)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     popularity = models.IntegerField(default=0)
-    quantity_purchased = models.IntegerField(null=True)
     OFFICE = "OFFICE SUPPLIES"
     BURRITO = "BURRITO"
     DOJOBELT = "DOJO BELT"
@@ -112,7 +111,6 @@ class Cart(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
 
     items = models.ManyToManyField(Item, related_name="item")
-    quantity = models.ForeignKey(Item, related_name="items_in_cart", null=True)
     PROGRESS = "IN PROGRESS"
     SHIP = "SHIPPED"
     CANCEL = "CANCELLED"

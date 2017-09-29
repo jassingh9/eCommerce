@@ -41,8 +41,8 @@
 
         <div class='similiar'>
           <h2>Similiar Items</h2>
-          {% for burrito in all_burritos %}
-          <a href="/show/{{burrito.id}}"><img src="../static/ecommerce/img/{{burrito.image}}" alt=""></a>
+          {% for items in all_items %}
+          <a href="/show/{{items.id}}"><img src="../static/ecommerce/img/{{items.image}}" alt=""></a>
           {% endfor %}
         </div>
 

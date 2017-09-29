@@ -44,8 +44,10 @@ def all_items(request):
     return render(request, 'all_items.html', context)
 
 def item(request, item_id):
+    c = Item.objects.get(id=item_id)
+    cat_get = c.category
     context = {
-        'all_burritos': Item.objects.filter(category="Burrito"), # need to pass in category......
+        'all_items': Item.objects.filter(category=cat_get), # need to pass in category......
         'item': Item.objects.get(id=item_id)
     }
     return render(request, 'ecommerce/item.html', context)
@@ -64,6 +66,7 @@ def addcart(request):
         cart = Cart.objects.get(id=request.session['cart']) ,
         quantity= qty,
         item = Item.objects.get(id=request.POST['item_id']))
+    return redirect('/')
 
 def admin(request):
     return render(request, 'ecommerce/index.html')
