@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from datetime import date, datetime
 from django.core.files.images import ImageFile
+from django.core.exceptions import ObjectDoesNotExist
 import re
 import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -18,7 +19,7 @@ class UserManager(models.Manager):
             errors['email'] = "Please enter a valid email in email format"
         else:
             try:
-                user = User.objects.get(email=postData['email'])
+                user = Adminuser.objects.get(email=postData['email'])
                 if bcrypt.checkpw(postData['password'].encode(), user.password.encode()) != True:
                     errors['password'] = "Email and password doesn't match"
             except ObjectDoesNotExist:
@@ -85,6 +86,21 @@ class Billing(models.Model):
     zipcode = models.CharField(max_length=255)
     objects=UserManager()
 
+class Order(models.Model):
+    account = models.OneToOneField(Adminuser, null=True)
+    billing = models.OneToOneField(Billing, related_name="orders")
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    PROGRESS = "IN PROGRESS"
+    SHIP = "SHIPPED"
+    CANCEL = "CANCELLED"
+    STATUS_CHOICES = (
+        (PROGRESS, "In Progress"),
+        (SHIP, "Shipped"),
+        (CANCEL, "Cancelled"),
+    )
+    status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")
+
 class Item(models.Model):
     name = models.CharField(max_length=255)
     image = models.ImageField(upload_to = "img/", default = "img/None")
@@ -109,18 +125,8 @@ class Item(models.Model):
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-
     items = models.ManyToManyField(Item, related_name="item")
-    PROGRESS = "IN PROGRESS"
-    SHIP = "SHIPPED"
-    CANCEL = "CANCELLED"
 
-    STATUS_CHOICES = (
-        (PROGRESS, "In Progress"),
-        (SHIP, "Shipped"),
-        (CANCEL, "Cancelled"),
-    )
-    status = models.CharField(max_length=40, choices=STATUS_CHOICES, default="PROGRESS")
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name="cart_items", null=True)

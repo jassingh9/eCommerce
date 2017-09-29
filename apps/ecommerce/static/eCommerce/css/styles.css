@@ -162,3 +162,23 @@ input{
 .allproducts th{
   text-align: center;
 }
+
+.column{
+  display: inline-block;
+  width: 45%;
+  vertical-align: top;
+}
+
+.column label{
+
+}
+
+.column input{
+  display:block;
+}
+
+#infopay{
+  text-align: center;
+  border-radius: 5px;
+  display: block;
+}

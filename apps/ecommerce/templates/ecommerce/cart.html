@@ -15,7 +15,7 @@
     <div class=container>
       <div class="header">
         <h3>A Web Page Store</h3>
-        {% if request.session.user %}
+        {% if request.session.cart %}
         <a href="/cart">Shopping Cart {{count}}</a>
         {% endif %}
       </div>
@@ -47,29 +47,37 @@
       </table>
       {{total}}
       <a href="/"> Continue Shopping</a>
-    </div>
-    <div>
-      <form action="info" method=post>
-        <h2> Shipping Info</h2>
-        First Name: <input type='text' name='first_name'>
-        Last Name: <input type='text' name='last_name'>
-        Address: <input type='text' name='address'>
-        Address 2: <input type='text' name='address2'>
-        City : <input type='text' name='city'>
-        Zipcode : <input type='text' name='zipcode'>
-        <h2>Billing Info</h2>
-        <input type='checkbox'>
-        First Name: <input type='text' name='bfirst_name'>
-        Last Name: <input type='text' name='blast_name'>
-        Address: <input type='text' name='baddress'>
-        Address 2: <input type='text' name='baddress2'>
-        City : <input type='text' name='bcity'>
-        Zipcode : <input type='text' name='bzipcode'>
-        Card: <input type="text" name="ccard">
-        Security: <input type="text" name="security">
-        Expiration: <input type="text" value="(mm)" name="month"><input type="text" value="(year)" name="year">
-        <input type=submit name="Pay">
-      </form>
+      <hr />
+      <div class=info>
+        <form action="/process" method=post>
+          {% csrf_token %}
+          <fieldset>
+            <div class=column>
+              <h2>Shipping Info</h2>
+              <label>First Name: <input type='text' name='first_name'></label>
+              <label>Last Name: <input type='text' name='last_name'></label>
+              <label>Address: <input type='text' name='address'></label>
+              <label>Address 2: <input type='text' name='address2'></label>
+              <label>City : <input type='text' name='city'></label>
+              <label>Zipcode : <input type='text' name='zipcode'></label>
+            </div>
+            <div class=column>
+              <h2>Billing Info</h2>
+              <label>Check if same as shipping</labe><input type='checkbox'></label><br>
+              <label>First Name: <input type='text' name='bfirst_name'></label>
+              <label>Last Name: <input type='text' name='blast_name'></label>
+              <label>Address: <input type='text' name='baddress'></label>
+              <label>Address 2: <input type='text' name='baddress2'></label>
+              <label>City : <input type='text' name='bcity'></label>
+              <label>Zipcode : <input type='text' name='bzipcode'></label>
+              <label>Card: <input type="text" name="ccard"></label>
+              <label>Security: <input type="text" name="security"></label>
+              <label>Expiration: <input type="text" value="(mm)" name="month"><input type="text" value="(year)" name="year"></label>
+            </div>
+            <input class = "btn btn-primary" id="infopay" type=submit name="Pay">
+          </fieldset>
+        </form>
+      </div>
     </div>
   </body>
 </html>

@@ -88,20 +88,23 @@ def admin(request):
 
 def login(request):
     if request.method == "POST":
-        errors = User.objects.basic_login_validator(request.POST)
+        errors = Adminuser.objects.basic_login_validator(request.POST)
         if len(errors):
             for tag, error in errors.iteritems():
                 messages.error(request,error, extra_tags=tag)
                 return redirect('/')
         else:
-            user = User.objects.get(email = request.POST['email'])
+            user = Adminuser.objects.get(email = request.POST['email'])
             if not 'admin' in request.session:
                 request.session['admin'] = adminuser.id
     return redirect('/orders')
 
 def orders(request):
-    items = Cart.objects.all()
-    return render(request, 'ecommerce/orders.html', {'orders': items})
+    context = {
+        order_details: Order.objects.all()
+    }
+
+    return render(request, 'ecommerce/orders.html', context)
 
 def edit(request):
     return redirect('/products')
@@ -152,6 +155,36 @@ def cart(request):
 
     # print context
     return render(request, 'ecommerce/cart.html', context)
+
+def process_order(request):
+
+    Shipping.objects.create(
+    first_name=request.POST['first_name'],
+    last_name=request.POST['last_name'],
+    address=request.POST['address'],
+    address2=request.POST['address2'],
+    city=request.POST['city'],
+    zipcode=request.POST['zipcode']
+    )
+
+    bill = Billing.objects.create(
+    first_name=request.POST['first_name'],
+    last_name=request.POST['last_name'],
+    address=request.POST['address'],
+    address2=request.POST['address2'],
+    city=request.POST['city'],
+    zipcode=request.POST['zipcode']
+    )
+
+    Order.objects.create(
+    billing = bill,
+    )
+
+    return redirect('/confirmation')
+
+def confirmation(request):
+    del request.session['cart']
+    return render(request, 'ecommerce/confirmation.html')
 
 # Create shopping page
 # View all items page with categories and search
